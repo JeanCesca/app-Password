@@ -163,5 +163,20 @@ extension PasswordStatusView {
     }
 }
 
+//Extensão para auxiliar os Tests da PasswordStatusView
+extension PasswordCriteriaView {
+    var isCheckImage: Bool {
+        return imageView.image == checkmarkImage
+    }
+    
+    var isXmarkImage: Bool {
+        return imageView.image == xmarkImage
+    }
+    
+    var isResetImage: Bool {
+        return imageView.image == circleImage
+    }
+}
+
 
 

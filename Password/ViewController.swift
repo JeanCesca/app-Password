@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     let confirmPasswordTextField = PasswordTextField(placeHolderText: "Re-enter new password")
     let resetButton = UIButton(type: .system)
     
+    var alert: UIAlertController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -132,9 +134,10 @@ extension ViewController: PasswordTextFieldDelegate {
              statusView.updateDisplay(sender.textField.text ?? "")
         }
     }
-    
+
     func editingDidEnd(_ sender: PasswordTextField) {
-        if sender == newPasswordTextField {
+        if sender === newPasswordTextField {
+            // as soon as we lose focus, make ❌ appear
             statusView.shouldResetCriteria = false
             _ = newPasswordTextField.validade()
         } else if sender == confirmPasswordTextField {
@@ -182,12 +185,26 @@ extension ViewController {
     }
 
     private func showAlert(title: String, message: String) {
-        let alert =  UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alert =  UIAlertController(title: "", message: "", preferredStyle: .alert)
+        guard let alert = alert else { return }
+        
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
         alert.title = title
         alert.message = message
         present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: Tests
+extension ViewController {
+    var newPasswordText: String? {
+        get { return newPasswordTextField.text }
+        set { newPasswordTextField.text = newValue}
+    }
+    
+    var confirmPasswordText: String? {
+        get { return confirmPasswordTextField.text }
+        set { confirmPasswordTextField.text = newValue}
     }
 }
 
